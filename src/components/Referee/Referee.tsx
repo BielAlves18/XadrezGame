@@ -26,7 +26,7 @@ const moveSound = new Howl({
 });
 
 const captureSound = new Howl({
-  src: ["/sounds/capture.mp3"],
+  src: ["/sounds/gemidinho.mp3"],
 });
 
 const checkmateSound = new Howl({
@@ -50,6 +50,7 @@ export default function Referee() {
       return false;
 
     let playedMoveIsValid = false;
+    let pieceCaptured = false; // Flag to track if a piece was captured
 
     const validMove = playedPiece.possibleMoves?.some((m) =>
       m.samePosition(destination)
@@ -64,11 +65,15 @@ export default function Referee() {
       playedPiece.team
     );
 
-    // playMove modifies the board thus we
-    // need to call setBoard
     setBoard(() => {
       const clonedBoard = board.clone();
       clonedBoard.totalTurns += 1;
+
+      // Checking if there's a piece on the destination position before the move
+      const destinationPiece = clonedBoard.pieces.find((p) =>
+        p.position.samePosition(destination)
+      );
+
       // Playing the move
       playedMoveIsValid = clonedBoard.playMove(
         enPassantMove,
@@ -78,6 +83,9 @@ export default function Referee() {
       );
 
       if (playedMoveIsValid) {
+        if (destinationPiece) {
+          pieceCaptured = true; // Mark that a piece was captured
+        }
         moveSound.play();
       }
 
@@ -88,6 +96,11 @@ export default function Referee() {
 
       return clonedBoard;
     });
+
+    // Play the capture sound if a piece was captured
+    if (pieceCaptured) {
+      captureSound.play();
+    }
 
     // This is for promoting a pawn
     let promotionRow = playedPiece.team === TeamType.OUR ? 7 : 0;
@@ -196,6 +209,7 @@ export default function Referee() {
     return validMove;
   }
 
+
   function promotePawn(pieceType: PieceType) {
     if (promotionPawn === undefined) {
       return;
@@ -234,7 +248,7 @@ export default function Referee() {
   return (
     <>
       <p style={{ color: "white", fontSize: "24px", textAlign: "center" }}>
-        Turnos total: {board.totalTurns}
+        THE SENAI ADS CHESS | Movimentos Realizados: {board.totalTurns}
       </p>
       <div className="modal hidden" ref={modalRef}>
         <div className="modal-body">
