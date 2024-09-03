@@ -234,7 +234,7 @@ export default function Referee() {
   return (
     <>
       <p style={{ color: "white", fontSize: "24px", textAlign: "center" }}>
-        Total turns: {board.totalTurns}
+        Turnos total: {board.totalTurns}
       </p>
       <div className="modal hidden" ref={modalRef}>
         <div className="modal-body">
@@ -260,10 +260,10 @@ export default function Referee() {
         <div className="modal-body">
           <div className="checkmate-body">
             <span>
-              The winning team is{" "}
+              O vencedor foi:{" "}
               {board.winningTeam === TeamType.OUR ? "white" : "black"}!
             </span>
-            <button onClick={restartGame}>Play again</button>
+            <button onClick={restartGame}>Jogar denovo</button>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export class Board {
   }
 
   calculateAllMoves() {
-    // Calculate the moves of all the pieces
+    // Calcula os movimentos de todas as peças
     for (const piece of this.pieces) {
       piece.possibleMoves = this.getValidMoves(piece, this.pieces);
     }
@@ -42,18 +42,16 @@ export class Board {
       ];
     }
 
-    // Check if the current team moves are valid
+    // Checa se todos os movimentos do time são válidos
     this.checkCurrentTeamMoves();
 
-    // Remove the posibble moves for the team that is not playing
+
     for (const piece of this.pieces.filter(
       (p) => p.team !== this.currentTeam
     )) {
       piece.possibleMoves = [];
     }
 
-    // Check if the playing team still has moves left
-    // Otherwise, checkmate!
     if (
       this.pieces
         .filter((p) => p.team === this.currentTeam)
