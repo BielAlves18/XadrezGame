@@ -22,7 +22,7 @@ import Chessboard from "../Chessboard/Chessboard";
 import { Howl } from "howler";
 
 const moveSound = new Howl({
-  src: ["/sounds/move-self.mp3"],
+  src: ["/sounds/andar.mp3"],
 });
 
 const captureSound = new Howl({
@@ -30,7 +30,7 @@ const captureSound = new Howl({
 });
 
 const checkmateSound = new Howl({
-  src: ["/sounds/move-check.mp3"],
+  src: ["/sounds/ganhamo.mp3"],
 });
 
 export default function Referee() {
@@ -248,7 +248,7 @@ export default function Referee() {
   return (
     <>
       <p style={{ color: "white", fontSize: "24px", textAlign: "center" }}>
-        THE SENAI ADS CHESS | Movimentos Realizados: {board.totalTurns}
+        ⚜ THE SENAI ADS CHESS ⚜ MOVIMENTS: {board.totalTurns}
       </p>
       <div className="modal hidden" ref={modalRef}>
         <div className="modal-body">
